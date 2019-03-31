@@ -6,7 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/pos', require('./routes/api/pos'));
+const Pos = require('./routers/api/Pos')
+const pos = new Pos('/api/pos', app)
+
+
+// app.use('/api/pos', require('./routes/api/pos'));
 
 const PORT = process.env.PORT || 5000;
 
