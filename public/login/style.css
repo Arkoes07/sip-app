@@ -1,0 +1,64 @@
+body{
+    background: #125d72;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-box{
+    width: 250px;
+    height: 400px;
+    background:#e7f6f9;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.logo{
+    height: 250px;
+    width: 100%;
+    background: url(../global-resources/SIP.png);
+    background-size: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-sizing: border-box;
+}
+
+form{
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+input{
+    margin: 0px 10px 20px 10px;
+    width: 80%;
+    outline-color: #14a2ba;
+}
+
+button{
+    margin-left: 10px;
+    border: 1px solid #125d72;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    background-color: #14a2ba;
+    color: white;
+} 
+
+
+button:hover{
+    cursor: pointer;
+}

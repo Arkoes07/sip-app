@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SIP | Pengaturan</title>
+
+    <link rel="stylesheet" href="../global-resources/style.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="menu-btn" id="menu-btn"></div>
+        <div class="judul-header">Pengaturan</div>
+    </header>
+
+    <!-- MENU -->
+    <div class="menu-box" id="menu-box">
+        <div class="logo"></div>
+        <a href="../monitor/"><div class="menu-link">MONITOR</div></a> 
+        <a href="../layanan/"><div class="menu-link">layanan</div></a> 
+        <a href="../pos/"><div class="menu-link">pos</div></a> 
+        <a href="../pengaturan/"><div class="menu-link aktif">pengaturan</div></a> 
+        <div class="log-link">
+            <a href=""><button>MASUK</button></a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <section id="personal">
+            Personal
+            <div class="pengaturan-box">
+                <div class="pengaturan-subbox nama">
+                    <div class="nama-wrapper">
+                        Nama
+                        <br><input type="text" id="nama">
+                    </div>
+                </div>
+                <div class="pengaturan-subbox deskripsi">
+                    <div class="nama-wrapper">
+                        Deskripsi
+                        <br><textarea  id="deskripsi" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="pengaturan-subbox tombol">
+                    <button id="simpan">SIMPAN</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="non-personal">
+            Non Personal
+            <div class="pengaturan-box">
+                <a href="../pos/">
+                    <div class="pengaturan-subbox linked" id="pos">
+                        Pos
+                        <img src="./imgs/baseline-keyboard_arrow_right-24px.svg" alt="">
+                    </div>
+                </a>
+                <a href="../layanan/">
+                    <div class="pengaturan-subbox linked" id="layanan">
+                        Layanan
+                        <img src="./imgs/baseline-keyboard_arrow_right-24px.svg" alt="">
+                    </div>
+                </a>       
+            </div>
+        </section>
+
+    </div>
+
+    <script src="../global-resources/menu.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

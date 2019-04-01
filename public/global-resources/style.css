@@ -1,0 +1,140 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #d9d9d9;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header{
+    top: 0;
+    position: absolute;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #125d72;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.judul-header{
+    padding-left: 10px;
+    color: #e7f6f9;
+    text-transform: uppercase;
+}
+
+.container{
+    margin: 100px auto 0 auto;
+    height: 100%;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+p{
+    margin: 0;
+    padding: 0;
+}
+
+.menu-btn{
+    height: 32px;
+    width: 32px;
+    background: url(../global-resources/outline_menu_white_24dp.png);
+    background-position: center;
+    background-size: cover;
+    transition: 0.2s;
+}
+
+.menu-btn:hover{
+    cursor: pointer;
+    opacity : 0.8;
+}
+
+.menu-bg{
+    position: absolute;
+    position: fixed;
+    background: #e7f6f9;
+    opacity: 0.3;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.menu-box{
+    position: absolute;
+    position: fixed;
+    top: 50px;
+    width: 250px;
+    height: 100%;
+    background:#e7f6f9;
+    transition: 0.5s;
+    z-index: 20;
+    border-right: 1px solid #125d72;
+}
+
+.logo{
+    width: 100%;
+    height: 250px;
+    box-sizing: border-box;
+    background: url(../global-resources/SIP.png);
+    background-position: center;
+    background-size: cover;
+    border-bottom: 1px solid #14a2ba;
+}
+
+.menu-link{
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    transition: 0.2s;
+    text-transform: uppercase;
+}
+.menu-link:hover{
+    background: #14a2ba;
+    color: white;
+    cursor: pointer;
+}
+.menu-link.aktif{
+    color: 	#14a2ba;
+}
+.menu-link.aktif:hover{
+    background: #14a2ba;
+    color: white;
+}
+
+.log-link{
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s;
+    text-transform: uppercase;
+}
+
+.log-link button{
+    margin-left: 10px;
+    border: 1px solid #125d72;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    background-color: #efe62f; 
+}
+
+.log-link button:hover{
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: #125d72;
+}
+
+

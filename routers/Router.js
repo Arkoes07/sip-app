@@ -1,3 +1,6 @@
+const client = require('../config/db');
+client.connect();
+
 class Router {
     constructor(routePath,app){
         if(app == null) {
@@ -6,6 +9,7 @@ class Router {
         this.app = app
         this.routePath = routePath
         this.registerServices()
+        this.client = client
     }
 
     getServices() { return {} }

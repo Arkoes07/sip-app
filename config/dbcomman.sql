@@ -1,3 +1,5 @@
+CREATE DATABASE sip;
+
 -- buat tipe data hari
 CREATE TYPE NAMAHARI AS enum ('senin','selasa','rabu','kamis','jumat','sabtu','minggu');
 
@@ -16,13 +18,13 @@ CREATE TABLE Pekerja (
 CREATE TABLE Pos (
     nama_pos    TEXT PRIMARY KEY,
     deskripsi   TEXT,
-    durasi      INT NOT NULL CHECK (durasi >= 0);
+    durasi      INT NOT NULL CHECK (durasi >= 0)
 );
 
 CREATE TABLE Layanan (
     nama_layanan    TEXT PRIMARY KEY,
     deskripsi       TEXT,
-    harga           INT NOT NULL CHECK (harga >= 0);
+    harga           INT NOT NULL CHECK (harga >= 0)
 );
 
 CREATE TABLE Transaksi (
@@ -55,7 +57,7 @@ CREATE TABLE Melakukan (
     no_transaksi    INT NOT NULL PRIMARY KEY REFERENCES Transaksi(no_transaksi) ON DELETE CASCADE ON UPDATE CASCADE,
     nama_pos        TEXT REFERENCES Pos(nama_pos) ON DELETE CASCADE ON UPDATE CASCADE,
     urutan          INT NOT NULL CHECK (urutan > 0),
-    antre          INT NOT NULL CHECK (antre >= 0),
+    antre          INT NOT NULL CHECK (antre >= 0)
 );
 
 -- functions dan trigger 

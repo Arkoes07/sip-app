@@ -1,6 +1,6 @@
 const Router = require('../Router')
 
-class Pos extends Router {
+class Layanan extends Router {
 
     getServices() {
         return {
@@ -12,7 +12,7 @@ class Pos extends Router {
     }
 
     getAll(req, res)  {
-        this.client.query('SELECT * FROM Pos', (err, result) => {
+        this.client.query('SELECT * FROM Layanan', (err, result) => {
             if(err){
                 return res.status(400).json({ err })
             }else{
@@ -22,8 +22,8 @@ class Pos extends Router {
     }
 
     insertRow(req,res) {
-        const text = 'INSERT INTO Pos values ($1,$2,$3) RETURNING *'
-        const values = [req.body.nama_pos, req.body.deskripsi, req.body.durasi]
+        const text = 'INSERT INTO Layanan values ($1,$2,$3) RETURNING *'
+        const values = [req.body.nama_layanan, req.body.deskripsi, req.body.harga]
         this.client.query(text, values, (err, result) => {
             if(err){
                 return res.status(400).json({ err })
@@ -34,8 +34,8 @@ class Pos extends Router {
     }
 
     updateRow(req,res) {
-        const text = 'UPDATE Pos SET nama_pos = $1, deskripsi = $2, durasi = $3 WHERE nama_pos = $4 RETURNING *'
-        const values = [req.body.nama_pos, req.body.deskripsi, req.body.durasi, req.body.old_nama_pos]
+        const text = 'UPDATE Layanan SET nama_layanan = $1, deskripsi = $2, harga = $3 WHERE nama_layanan = $4 RETURNING *'
+        const values = [req.body.nama_layanan, req.body.deskripsi, req.body.harga, req.body.old_nama_layanan]
         this.client.query(text, values, (err, result) => {
             if(err){
                 return res.status(400).json({ err })
@@ -46,8 +46,8 @@ class Pos extends Router {
     }
 
     deleteRow(req,res) {
-        const text = 'DELETE FROM Pos WHERE nama_pos = $1';
-        const values = [req.body.nama_pos];
+        const text = 'DELETE FROM Layanan WHERE nama_layanan = $1';
+        const values = [req.body.nama_layanan];
         this.client.query(text, values, (err, result) => {
             if(err){
                 return res.status(400).json({ err })
@@ -59,4 +59,4 @@ class Pos extends Router {
 
 }
 
-module.exports = Pos;
+module.exports = Layanan;

@@ -1,18 +1,18 @@
 const Router = require('../Router')
 
-class Pos extends Router {
+class Bertugas extends Router {
 
     getServices() {
         return {
             'GET /'         : 'getAll',
             'POST /'        : 'insertRow',
-            'PUT /'      : 'updateRow',
-            'DELETE /'   : 'deleteRow'
+            'PUT /'         : 'updateRow',
+            'DELETE /'      : 'deleteRow'
         }
     }
 
     getAll(req, res)  {
-        this.client.query('SELECT * FROM Pos', (err, result) => {
+        this.client.query('SELECT * FROM Bertugas', (err, result) => {
             if(err){
                 return res.status(400).json({ err })
             }else{
@@ -22,8 +22,8 @@ class Pos extends Router {
     }
 
     insertRow(req,res) {
-        const text = 'INSERT INTO Pos values ($1,$2,$3) RETURNING *'
-        const values = [req.body.nama_pos, req.body.deskripsi, req.body.durasi]
+        const text = 'INSERT INTO Bertugas values ($1,$2,$3) RETURNING *'
+        const values = [req.body.id_pekerja, req.body.hari, req.body.nama_pos]
         this.client.query(text, values, (err, result) => {
             if(err){
                 return res.status(400).json({ err })
@@ -34,8 +34,8 @@ class Pos extends Router {
     }
 
     updateRow(req,res) {
-        const text = 'UPDATE Pos SET nama_pos = $1, deskripsi = $2, durasi = $3 WHERE nama_pos = $4 RETURNING *'
-        const values = [req.body.nama_pos, req.body.deskripsi, req.body.durasi, req.body.old_nama_pos]
+        const text = 'UPDATE Bertugas SET id_pekerja = $1, hari = $2, nama_pos = $3 WHERE id_pekerja = $4 AND hari = $5  RETURNING *'
+        const values = [req.body.id_pekerja, req.body.hari, req.body.nama_pos, req.body.old_id_pekerja, req.body.old_hari]
         this.client.query(text, values, (err, result) => {
             if(err){
                 return res.status(400).json({ err })
@@ -46,8 +46,8 @@ class Pos extends Router {
     }
 
     deleteRow(req,res) {
-        const text = 'DELETE FROM Pos WHERE nama_pos = $1';
-        const values = [req.body.nama_pos];
+        const text = 'DELETE FROM Bertugas WHERE id_pekerja = $1 AND hari = $2';
+        const values = [req.body.id_pekerja, req.body.hari];
         this.client.query(text, values, (err, result) => {
             if(err){
                 return res.status(400).json({ err })
@@ -59,4 +59,4 @@ class Pos extends Router {
 
 }
 
-module.exports = Pos;
+module.exports = Bertugas;
