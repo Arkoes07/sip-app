@@ -25,3 +25,5 @@ insert into Terdiri values
 insert into Transaksi (merk_mobil, no_kendaraan, nama_layanan) values ('BMW','B 4 LWI','Paket Sedang');
 insert into Transaksi (merk_mobil, no_kendaraan, nama_layanan) values ('MERCY','BK 1 ALWI','Paket Sedang');
 insert into Transaksi (merk_mobil, no_kendaraan, nama_layanan) values ('MAYBACH','BK 3 MAS','Paket Komplit');
+
+

@@ -27,6 +27,9 @@ const terdiri = new Terdiri('/api/terdiri', app)
 const Bertugas = require('./routers/api/Bertugas')
 const bertugas = new Bertugas('/api/bertugas', app)
 
+const Pengguna = require('./routers/api/Pengguna')
+const pengguna = new Pengguna('/api/pengguna', app)
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))

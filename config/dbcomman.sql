@@ -2,12 +2,13 @@ CREATE DATABASE sip;
 
 -- buat tipe data hari
 CREATE TYPE NAMAHARI AS enum ('senin','selasa','rabu','kamis','jumat','sabtu','minggu');
+CREATE TYPE JUSER AS ENUM ('admin','operator','owner');
 
 -- membuat tabel entity
 CREATE TABLE Pengguna (
     username    TEXT PRIMARY KEY,
     password    TEXT NOT NULL,
-    jenis_user  TEXT NOT NULL
+    jenis_user  JUSER NOT NULL
 );
 
 CREATE TABLE Pekerja (
@@ -174,9 +175,6 @@ BEGIN
     RETURN pk;
 END;
 $$ LANGUAGE plpgsql;
-
-
-
 
 
 
