@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 const Router = require('../Router')
 
+const jwt = require('jsonwebtoken')
+
 class Pengguna extends Router {
 
     getServices() {
@@ -28,7 +30,17 @@ class Pengguna extends Router {
                             if(!same){
                                 return res.json({ err : "Password Salah" })
                             }else{
-                                res.json({ msg : "berhasil login"})
+                                const user = {
+                                    username,
+                                    jenisUser : result.rows[0].jenis_user
+                                }
+                                jwt.sign({ user }, 'secretkey', (err, token) => {
+                                    if(err){
+                                        return res.status(400).json({ err })
+                                    }
+                                    res.json({ token })
+                                })
+                                //  
                             }
                         }
                     })

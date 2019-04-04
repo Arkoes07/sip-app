@@ -12,6 +12,7 @@ class Layanan extends Router {
     }
 
     getAll(req, res)  {
+        console.log(req.authData);
         this.client.query('SELECT * FROM Layanan', (err, result) => {
             if(err){
                 return res.status(400).json({ err })
