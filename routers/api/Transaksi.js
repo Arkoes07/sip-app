@@ -5,16 +5,27 @@ class Transaksi extends Router {
     getServices() {
         return {
             'GET /'                         : 'getAll',
+            'GET /today'                    : 'getAllToday',
             'POST /'                        : 'insertRow',
-            'PUT /selesai/:no_transaksi'    : 'setToFinished',
+            'PUT /:no_transaksi'            : 'continueProgress',
             'DELETE /:no_transaksi'         : 'deleteRow'
         }
     }
 
     getAll(req, res)  {
-        this.client.query('SELECT * FROM Transaksi', (err, result) => {
+        this.client.query('SELECT * FROM Transaksi no_transaksi', (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({ err: err.detail })
+            }else{
+                res.json(result.rows);
+            }
+        })
+    }
+
+    getAllToday(req, res)  {
+        this.client.query('SELECT * FROM Transaksi WHERE tanggal = CURRENT_DATE', (err, result) => {
+            if(err){
+                return res.status(400).json({ err: err.detail })
             }else{
                 res.json(result.rows);
             }
@@ -26,19 +37,19 @@ class Transaksi extends Router {
         const values = [req.body.merk_mobil, req.body.no_kendaraan]
         this.client.query(text, values, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({ err: err.detail })
             }else{
                 res.json(result.rows);
             }
         })
     }
 
-    setToFinished(req,res) {
-        const text = 'UPDATE Transaksi SET selesai = TRUE WHERE no_transaksi = $1 RETURNING *'
+    continueProgress(req,res) {
+        const text = 'SELECT * FROM lanjut_progres($1)'
         const values = [req.params.no_transaksi]
         this.client.query(text, values, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({ err: 'tidak bisa lanjut karena sudah selesai atau masih menunggu giliran' })
             }else{
                 res.json(result.rows)
             }
@@ -50,7 +61,7 @@ class Transaksi extends Router {
         const values = [req.params.no_transaksi];
         this.client.query(text, values, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({ err: err.detail })
             }else{
                 res.json({ msg: 'deleted succesfully' })
             }

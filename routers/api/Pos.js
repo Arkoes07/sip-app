@@ -6,27 +6,49 @@ class Pos extends Router {
         return {
             'GET /'         : 'getAll',
             'POST /'        : 'insertRow',
-            'PUT /'      : 'updateRow',
-            'DELETE /'   : 'deleteRow'
+            'PUT /'         : 'updateRow',
+            'DELETE /'      : 'deleteRow'
         }
     }
 
     getAll(req, res)  {
-        this.client.query('SELECT * FROM Pos', (err, result) => {
-            if(err){
-                return res.status(400).json({ err })
-            }else{
-                res.json(result.rows);
-            }
-        })
+        if(typeof req.query.nama_pos !== 'undefined' && req.query.nama_pos !== null){
+            const text = 'SELECT * FROM Pos WHERE nama_pos = $1' 
+            const values = [req.query.nama_pos]
+            this.client.query(text, values, (err, result) => {
+                if(err){
+                    return res.status(400).json({  err: err.detail })
+                }else{
+                    res.json(result.rows);
+                }
+            })
+        }else{
+            this.client.query('SELECT * FROM Pos ORDER BY nama_pos', (err, result) => {
+                if(err){
+                    return res.status(400).json({ err: err.detail })
+                }else{
+                    res.json(result.rows);
+                }
+            })
+        }
     }
 
     insertRow(req,res) {
+        let { nama_pos, deskripsi, durasi } = req.body
+
+        const check = this.checkNewData(nama_pos,durasi)
+        if(check.err){
+            return res.status(400).json({ err : check.msg })
+        }
+        if(!deskripsi || /^\s*$/.test(deskripsi)){  
+            deskripsi = null
+        }
+
         const text = 'INSERT INTO Pos values ($1,$2,$3) RETURNING *'
-        const values = [req.body.nama_pos, req.body.deskripsi, req.body.durasi]
+        const values = [nama_pos, deskripsi, durasi]
         this.client.query(text, values, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({  err: err.detail })
             }else{
                 res.json(result.rows);
             }
@@ -34,13 +56,22 @@ class Pos extends Router {
     }
 
     updateRow(req,res) {
+        let { nama_pos, deskripsi, durasi, old_nama_pos } = req.body
+
+        const check = this.checkNewData(nama_pos,durasi)
+        if(check.err){
+            return res.status(400).json({ err : check.msg })
+        }
+        if(!deskripsi || /^\s*$/.test(deskripsi)){  
+            deskripsi = null
+        }
         const text = 'UPDATE Pos SET nama_pos = $1, deskripsi = $2, durasi = $3 WHERE nama_pos = $4 RETURNING *'
-        const values = [req.body.nama_pos, req.body.deskripsi, req.body.durasi, req.body.old_nama_pos]
+        const values = [nama_pos, deskripsi, durasi, old_nama_pos]
         this.client.query(text, values, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({  err: err.detail })
             }else{
-                res.json(result.rows)
+                res.json(result.rows);
             }
         })
     }
@@ -50,11 +81,21 @@ class Pos extends Router {
         const values = [req.body.nama_pos];
         this.client.query(text, values, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({ err : err.detail })
             }else{
                 res.json({ msg: 'deleted succesfully' })
             }
         })
+    }
+
+    checkNewData(nama_pos,durasi){
+        if(!nama_pos || /^\s*$/.test(nama_pos)) {
+            return { err : true, msg: 'nama pos harus diisi'}
+        }
+        if(durasi == 'NaN' || durasi <= 0){
+            return { err : true, msg: 'durasi harus diisi dan lebih besar dari 0'}
+        }
+        return { err: false }
     }
 
 }

@@ -138,3 +138,45 @@ a{
 }
 
 
+.container form.file{
+    margin: 20px auto 100px auto;
+    width: 50%;
+    box-sizing: border-box;
+    background: white;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(20,162,186,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(20,162,186,1);
+    box-shadow: 0px 0px 10px 0px rgba(20,162,186,1);
+}
+
+.container form.file p.judul-form{
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #14a2ba;
+}
+
+.container form.file input{
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.container form.file button{
+    margin-right: 10px;
+    border: 1px solid #125d72;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    background-color: #14a2ba;
+    color: white;
+}
+
+.container form.file button#backBtn{
+    background-color: #efe62f;
+    color: black;
+}

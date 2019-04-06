@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pos</title>
+    <title>Pos | Ubah Pos</title>
 
     <link rel="stylesheet" href="../global-resources/style.css">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
     <!-- HEADER -->
     <header>
         <div class="menu-btn" id="menu-btn"></div>
-        <div class="judul-header">Pos</div>
+        <div class="judul-header">Pos | Ubah Pos</div>
     </header>
 
     <!-- MENU -->
@@ -29,18 +29,21 @@
     </div>
 
     <div class="container">
-        Pos yang tersedia:
-        <div id="box">
-            
-        </div>
+        <form action="#" class="file">
+            <p class="judul-form">Buat Pos</p>
+            <label for="judul">Nama Pos :</label>
+            <input type="text" name="judul" id="judul">
+            <label for="deskripsi">Deskripsi :</label>
+            <input type="text" name="deskripsi" id="deskripsi">
+            <label for="durasi">Durasi :</label>
+            <input type="number" name="durasi" id="durasi">
+            <button id="backBtn">Kembali</button>
+            <button id="saveBtn">Simpan</button>
+        </form>
     </div>
-    
-    <a href="buat.html"><div id="tambah">TAMBAH POS</div></a> 
 
     <script src="../global-resources/menu.js"></script>
     <script src="../global-resources/jquery-3.3.1.min.js"></script>
-    <script src="Pos.js"></script>
-    <script src="main.js"></script>
-
+    <script src="ubah.js"></script>
 </body>
 </html>
