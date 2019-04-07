@@ -14,8 +14,11 @@
     min-height: 100px;
     border: 1px solid #14a2ba;
 }
-.sub-box:hover{
-    background: #f8f8f8;
+.sub-box.proses{
+    background: #c8e6c9;
+}
+.sub-box.selesai{
+    background: #ffcdd2;
 }
 
 .box-content{
@@ -33,20 +36,11 @@ p.judul{
     font-size: 24px;
     margin: 5px 0;
 }
-p.deskripsi{
+p{
     font-size: 14px;
     margin: 5px 0;
 }
 
-.keterangan{
-    min-height: 50px;
-    justify-content: center;
-    color: #125d72;
-    text-align: center;
-}
-.keterangan.harga {
-    color: #14a2ba;
-}
 
 .aksi{
     justify-content: flex-end;
@@ -81,7 +75,7 @@ p.deskripsi{
     justify-content: center;
     align-items: center;
     height: 30px;
-    width: 150px;
+    width: 170px;
     background:	#14a2ba;
     color: white;
     font-size: 14px;
@@ -101,6 +95,6 @@ p.deskripsi{
 @media only screen and (min-width: 700px) {
     .sub-box{
         display: grid;
-        grid-template-columns: 40% 20% 20% 20%;
+        grid-template-columns: 25% 30% 25% 20%;
     }
 }

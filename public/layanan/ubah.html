@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pos | Buat Pos</title>
+    <title>Layanan | Ubah Layanan</title>
 
     <link rel="stylesheet" href="../global-resources/style.css">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
     <!-- HEADER -->
     <header>
         <div class="menu-btn" id="menu-btn"></div>
-        <div class="judul-header">Pos | Buat Pos</div>
+        <div class="judul-header">Layanan | Ubah Layanan</div>
     </header>
 
     <!-- MENU -->
@@ -30,20 +30,38 @@
 
     <div class="container">
         <form action="#" class="file">
-            <p class="judul-form">Buat Pos</p>
-            <label for="judul">Nama Pos :</label>
+            <p class="judul-form">Ubah Layanan</p>
+            <label for="judul">Nama Layanan :</label>
             <input type="text" name="judul" id="judul">
             <label for="deskripsi">Deskripsi :</label>
             <input type="text" name="deskripsi" id="deskripsi">
-            <label for="durasi">Durasi :</label>
-            <input type="number" name="durasi" id="durasi">
+            <label for="harga">Harga :</label>
+            <input type="number" name="harga" id="harga">
+            <label>Urutan Pos :</label>
+            <span class="list-btn" id="add">T</span> 
+            <span class="list-btn" id="remove">K</span> 
+            <ol id="pos-list">
+            </ol>
+            <br>
             <button id="backBtn">Kembali</button>
             <button id="saveBtn">Simpan</button>
         </form>
     </div>
 
+    <div class="prompt-bg" id="prompt-pos">
+        <div class="prompt">
+            <p>Pilih Pos :</p>
+            <form action="#" id="prompt-form">
+            </form>
+            <div class="prompt-btn">
+                <button id="backBtnPrompt">Kembali</button>
+                <button id="saveBtnPrompt">Pilih</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../global-resources/jquery-3.3.1.min.js"></script>
     <script src="../global-resources/menu.js"></script>
-    <script src="buat.js"></script>
+    <script src="ubah.js"></script>
 </body>
 </html>

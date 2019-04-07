@@ -10,6 +10,7 @@ const Transaksi = require('./routers/api/Transaksi')
 const Terdiri = require('./routers/api/Terdiri')
 const Bertugas = require('./routers/api/Bertugas')
 const Pengguna = require('./routers/api/Pengguna')
+const Mix = require('./routers/api/Mix')
 
 // initialize body-parser
 app.use(express.json())
@@ -26,6 +27,8 @@ const transaksi = new Transaksi('/api/transaksi', app)
 const terdiri = new Terdiri('/api/terdiri', app)
 const bertugas = new Bertugas('/api/bertugas', app)
 const pengguna = new Pengguna('/api/pengguna', app)
+const mix = new Mix('/api/mix', app)
+
 
 // Start server
 const PORT = process.env.PORT || 5000

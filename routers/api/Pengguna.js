@@ -18,17 +18,17 @@ class Pengguna extends Router {
         const value = [username]
         this.client.query(text, value, (err, result) => {
             if(err){
-                return res.status(400).json({ err })
+                return res.status(400).json({ err : err.detail })
             }else{
                 if(!result.rows[0]){
                     return res.status(400).json({ err : "Pengguna tidak ditemukan" })
                 }else{
                     bcrypt.compare(password, result.rows[0].password, (err, same) => {
                         if(err){
-                            return res.status(400).json({ err })
+                            return res.status(400).json({ err: err.detail })
                         }else{
                             if(!same){
-                                return res.json({ err : "Password Salah" })
+                                return res.status(400).json({ err : "Password Salah" })
                             }else{
                                 const user = {
                                     username,
@@ -38,7 +38,7 @@ class Pengguna extends Router {
                                     if(err){
                                         return res.status(400).json({ err })
                                     }
-                                    res.json({ token })
+                                    res.json({ token, jenisUser : user.jenisUser })
                                 })
                                 //  
                             }

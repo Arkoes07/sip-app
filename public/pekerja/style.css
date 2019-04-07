@@ -42,11 +42,9 @@ p.deskripsi{
     min-height: 50px;
     justify-content: center;
     color: #125d72;
-    text-align: center;
+    text-align: left;
 }
-.keterangan.harga {
-    color: #14a2ba;
-}
+
 
 .aksi{
     justify-content: flex-end;
@@ -101,6 +99,6 @@ p.deskripsi{
 @media only screen and (min-width: 700px) {
     .sub-box{
         display: grid;
-        grid-template-columns: 40% 20% 20% 20%;
+        grid-template-columns: 35% 40% 25%;
     }
 }

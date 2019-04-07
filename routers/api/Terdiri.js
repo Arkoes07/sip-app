@@ -5,9 +5,10 @@ class Terdiri extends Router {
     getServices() {
         return {
             'GET /'         : 'getAll',
-            'POST /'        : 'insertRow',
-            'PUT /'         : 'updateRow',
-            'DELETE /'      : 'deleteRow'
+            'POST /'        : 'insertRow verifyToken',
+            'POST /group'   : 'upsertRow verifyToken',
+            'PUT /'         : 'updateRow verifyToken',
+            'DELETE /'      : 'deleteRow verifyToken'
         }
     }
 
@@ -34,6 +35,11 @@ class Terdiri extends Router {
     }
 
     insertRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         const { nama_layanan, urutan, nama_pos } = req.body
         const check = this.checkNewData(nama_layanan, urutan, nama_pos)
         if(check.err){
@@ -50,7 +56,44 @@ class Terdiri extends Router {
         })
     }
 
+    async upsertRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+        const nama_layanan = req.body.nama_layanan
+        const posArr = req.body["posArr[]"]
+        try {
+            let count = 0
+            await this.client.query("BEGIN")
+            for(let i in posArr){
+                count++
+                const urutan = parseInt(i)+1
+                const nama_pos = posArr[i]
+                const text = `INSERT INTO Terdiri VALUES ($1,$2,$3) ON CONFLICT (nama_layanan,urutan) DO UPDATE SET nama_pos = $3`
+                const values = [nama_layanan, urutan, nama_pos]
+                await this.client.query(text, values)
+            }
+            const textTwo = `DELETE FROM Terdiri WHERE nama_layanan = $1 AND urutan > $2`
+            await this.client.query(textTwo, [nama_layanan, count])
+            await this.client.query("COMMIT")
+        }
+        catch (ex){
+            console.log(ex)
+            await this.client.query("ROLLBACK")
+            // return res.status(400).json({ err: ex.detail })
+        }
+        finally{
+            res.status(200).json({msg : 'berhasil upsert'})
+        }
+    }
+
     updateRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         const { nama_layanan, urutan, nama_pos, old_nama_layanan, old_urutan } = req.body
         const check = this.checkNewData(nama_layanan, urutan, nama_pos)
         if(check.err){
@@ -68,6 +111,11 @@ class Terdiri extends Router {
     }
 
     deleteRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+        
         const text = 'DELETE FROM Terdiri WHERE nama_layanan = $1 AND urutan = $2';
         const values = [req.body.nama_layanan, req.body.urutan];
         this.client.query(text, values, (err, result) => {

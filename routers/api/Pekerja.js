@@ -6,9 +6,9 @@ class Pekerja extends Router {
         return {
             'GET /'                 : 'getAll',
             'GET /:id_pekerja'      : 'getOne',
-            'POST /'                : 'insertRow',
-            'PUT /:id_pekerja'      : 'updateRow',
-            'DELETE /:id_pekerja'   : 'deleteRow'
+            'POST /'                : 'insertRow verifyToken',
+            'PUT /:id_pekerja'      : 'updateRow verifyToken',
+            'DELETE /:id_pekerja'   : 'deleteRow verifyToken'
         }
     }
 
@@ -35,6 +35,11 @@ class Pekerja extends Router {
     }
 
     insertRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         const check = this.checkNewData(req.body.nama_pekerja)
         if(check.err){
             return res.status(400).json({ err : check.msg })
@@ -51,6 +56,11 @@ class Pekerja extends Router {
     }
 
     updateRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         const check = this.checkNewData(req.body.nama_pekerja)
         if(check.err){
             return res.status(400).json({ err : check.msg })
@@ -67,6 +77,11 @@ class Pekerja extends Router {
     }
 
     deleteRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+        
         const text = 'DELETE FROM Pekerja WHERE id_pekerja = $1';
         const values = [req.params.id_pekerja];
         this.client.query(text, values, (err, result) => {
@@ -79,7 +94,7 @@ class Pekerja extends Router {
     }
 
     checkNewData(nama_pekerja){
-        if(!nama_pekerja || /^\s*$/.test(nama_pos)) {
+        if(!nama_pekerja || /^\s*$/.test(nama_pekerja)) {
             return { err : true, msg: 'nama pekerja harus diisi'}
         }
         return { err: false }

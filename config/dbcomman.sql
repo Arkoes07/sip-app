@@ -44,7 +44,7 @@ CREATE TABLE Transaksi (
 
 -- membuat tabel relasi
 CREATE TABLE Bertugas (
-    id_pekerja      INT NOT NULL REFERENCES Pekerja(id_pekerja) ON DELETE CASCADE ON UPDATE CASCADE,
+    id_pekerja      INT NOT NULL REFERENCES Pekerja(id_pekerja) ON DELETE RESTRICT ON UPDATE CASCADE,
     hari            NAMAHARI NOT NULL,
     nama_pos        TEXT NOT NULL REFERENCES Pos(nama_pos) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (id_pekerja, hari)
@@ -53,28 +53,31 @@ CREATE TABLE Bertugas (
 CREATE TABLE Terdiri (
     nama_layanan    TEXT NOT NULL REFERENCES Layanan(nama_layanan) ON DELETE CASCADE ON UPDATE CASCADE,
     urutan          INT NOT NULL CHECK (urutan > 0),
-    nama_pos        TEXT NOT NULL REFERENCES Pos(nama_pos) ON DELETE CASCADE ON UPDATE CASCADE,
+    nama_pos        TEXT NOT NULL REFERENCES Pos(nama_pos) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (nama_layanan, urutan)
 );
 
 
 -- functions dan trigger 
 
--- t1
+-- 1. TRIGGER : fungsi untuk mengecek apakah ada pekerja untuk melakukan layanan yang dipilih
 CREATE OR REPLACE FUNCTION cek_ketersediaan_pekerja()
 RETURNS TRIGGER AS $$
 DECLARE
     current_dow     INT;
     dow_text        NAMAHARI;
 BEGIN
+    -- tentuken hari sekarang
     current_dow := date_part('dow',current_date);
     IF current_dow = 0 THEN
         current_dow := 7;
     END IF; 
+    -- tentukan string enum dari hari yang terpilih
     SELECT enumlabel INTO dow_text
         from pg_catalog.pg_enum
         WHERE enumtypid = 'NAMAHARI'::regtype 
         AND enumsortorder = current_dow;
+    -- mengecek ketersediaan
     IF EXISTS (
         SELECT nama_pos 
         FROM Terdiri 
@@ -92,12 +95,14 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER cekpekerja 
 BEFORE INSERT ON Transaksi FOR EACH ROW EXECUTE PROCEDURE cek_ketersediaan_pekerja();
 
--- t2
+
+-- 2. TRIGGER : menetapkan nilai-nilai awal untuk transaksi baru ( urutan pos dan antreannya )
 CREATE OR REPLACE FUNCTION konfigurasi_awal_transaksi()
 RETURNS TRIGGER AS $$
 DECLARE
     new_antre INT;
 BEGIN
+    -- menentukan nomor antrean
     SELECT max(antre) INTO new_antre
         FROM Transaksi 
         WHERE nama_pos IN (
@@ -120,23 +125,59 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER konfigurasiawal
 BEFORE INSERT ON Transaksi FOR EACH ROW EXECUTE PROCEDURE konfigurasi_awal_transaksi();
 
--- f3
+-- 3. TRIGGER : trigger untuk mengecek apakah suatu transaksi bisa dihapus
+CREATE OR REPLACE FUNCTION cek_sebelum_hapus()
+RETURNS TRIGGER AS $$
+DECLARE
+BEGIN
+    -- cek antreaanyanya, kalo lagi diproses maka tidak bisa dihapus
+    IF OLD.selesai = FALSE THEN
+        IF OLD.antre = 1 THEN 
+            RAISE EXCEPTION 'Tidak bisa dihapus karena masih dalam proses pengerjaan';
+        END IF;
+    END IF;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER cekproses
+BEFORE DELETE ON Transaksi FOR EACH ROW EXECUTE PROCEDURE cek_sebelum_hapus();
+
+-- 4. TRIGGER : trigger untuk mengupdate antrean akibat salah satu transaksi dihapus
+CREATE OR REPLACE FUNCTION update_antrean()
+RETURNS TRIGGER AS $$
+DECLARE 
+BEGIN 
+    UPDATE Transaksi
+    SET antre = antre - 1
+    WHERE selesai = FALSE AND nama_pos = OLD.nama_pos AND antre > OLD.antre;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER updatesetelahhapus
+AFTER DELETE ON Transaksi FOR EACH ROW EXECUTE PROCEDURE update_antrean();
+
+-- UDF : untuk mengubah suatu transaksi menjadi selesai
 CREATE OR REPLACE FUNCTION selesaikan_transaksi(pk INT)
 RETURNS INT AS $$
 DECLARE
 BEGIN
+    -- kalau transaksi sudah selesai tidak boleh diselesaikan lagi
     IF EXISTS (SELECT * FROM Transaksi WHERE no_transaksi = pk AND selesai = TRUE) THEN
         RAISE EXCEPTION 'Transaksi no : % sudah selesai',pk;
     END IF;
     UPDATE Transaksi
-        SET selesai = TRUE,
-        jam_selesai = localtime
+        SET selesai = TRUE,         -- ubah selesai
+        jam_selesai = localtime     -- update jam selesai
         WHERE no_transaksi = pk;
     RETURN pk;
 END;
 $$ LANGUAGE plpgsql;
 
--- f4
+-- UDF : untuk melanjutkan proses dari sebuah transaksi, menentukan pos berikutnya,
+-- nomor antreannya, dan juga mengubah nomor antrean dari semua transaksi yang terpengaruh,
+-- apabila sudah pada tahap terakhis maka transaksi akan diselesaikan
 CREATE OR REPLACE FUNCTION lanjut_progres(pk INT)
 RETURNS INT AS $$
 DECLARE
@@ -145,18 +186,24 @@ DECLARE
     old_nama_pos TEXT;
     new_nama_pos TEXT;
 BEGIN
+    -- mengecek apakah transaksi masih dalam antrean atau sudah selesai
     IF EXISTS (SELECT * FROM Transaksi WHERE no_transaksi = pk AND (antre > 1 OR selesai = TRUE)) THEN
+    -- jika iya, maka tidak bisa dilanjutkan
         RAISE EXCEPTION 'Tidak bisa lanjut karena sudah selesai atau masih menunggu giliran';
     END IF;
+    -- dapatkan informasi transaksi sekarang
     SELECT urutan_pos, nama_pos INTO new_urutan_pos, old_nama_pos
         FROM Transaksi 
         WHERE no_transaksi = pk;
     new_urutan_pos := new_urutan_pos + 1;
+    -- dapatkan informasi transaksi untuk proses berikutnya
     SELECT Terdiri.nama_pos INTO new_nama_pos 
         FROM Transaksi INNER JOIN Terdiri USING (nama_layanan) 
-        WHERE no_transaksi = pk AND urutan = new_urutan_pos;    
+        WHERE no_transaksi = pk AND urutan = new_urutan_pos;
+    -- jika tidak ditemukan maka transaksi akan diselesaikan
     IF NOT FOUND THEN
         PERFORM * FROM selesaikan_transaksi(pk);
+    -- jika ada, maka akan ditentukan antreannya
     ELSE
         SELECT max(antre) INTO new_antre
             FROM Transaksi 
@@ -171,10 +218,12 @@ BEGIN
             nama_pos = new_nama_pos
             WHERE no_transaksi = pk;
     END IF; 
+    -- lakukan update
     UPDATE Transaksi SET antre = antre - 1 WHERE nama_pos = old_nama_pos AND SELESAI = FALSE;
     RETURN pk;
 END;
 $$ LANGUAGE plpgsql;
 
+-- UDF : untuk menselesaikan semua transaksi kemarin
 
 

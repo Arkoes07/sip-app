@@ -98,12 +98,17 @@ p{
     color: white;
     cursor: pointer;
 }
-.menu-link.aktif{
-    color: 	#14a2ba;
-}
-.menu-link.aktif:hover{
-    background: #14a2ba;
-    color: white;
+.user-info{
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    font-size: 14px;
+    color: #14a2ba;
+    align-items: center;
+    padding-left: 20px;
+    transition: 0.2s;
+    text-transform: uppercase;
 }
 
 .log-link{
@@ -163,6 +168,13 @@ a{
     padding: 5px;
     box-sizing: border-box;
 }
+.container form.file select{
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 5px;
+    box-sizing: border-box;
+}
 
 .container form.file button{
     margin-right: 10px;
@@ -175,8 +187,64 @@ a{
     background-color: #14a2ba;
     color: white;
 }
+.container form.file button:hover{
+    cursor: pointer;
+}
 
 .container form.file button#backBtn{
     background-color: #efe62f;
     color: black;
+}
+
+.container form.file span.list-btn{
+    box-sizing: border-box;
+    border-radius: 50%;
+    color: white;
+    padding: 2px 6px;
+    margin-right: 5px;
+}
+.container form.file span#add{
+    background: green;
+}
+.container form.file span#remove{
+    background:red;
+}
+.container form.file span.list-btn:hover{
+    cursor: pointer;
+}
+
+.prompt-bg{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.05);
+    position: absolute;
+    top: 0;
+    z-index: 5; 
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.prompt{
+    width: 250px;
+    min-height: 100px;
+    box-sizing: border-box;
+    background-color: #FAF9FA;
+    text-align: left;
+    position: relative;
+    border-radius: 5px;
+    padding: 10px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);;
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);;
+}
+.prompt p{
+    margin: 5px 0px;
+}
+.prompt input{
+    margin: 5px 0px;
+}
+.prompt .prompt-btn{
+    width: 100%;
+    height: auto;
+    text-align: right;
 }

@@ -10,9 +10,12 @@ insert into Layanan values ('Paket Sedang','Hanya dilakukan pencucian bagian lua
 insert into Layanan values ('Paket Komplit','Hanya dilakukan pencucian bagian luar',50000);
 
 insert into Bertugas values 
+(1,'minggu','Pencucian Luar'),
+(2,'minggu','Pengeringan');
+insert into Bertugas values (5,'rabu','Interior');
+insert into Bertugas values 
 (1,'senin','Pencucian Luar'),
 (2,'senin','Pengeringan');
-insert into Bertugas values (4,'rabu','Interior');
 
 insert into Terdiri values 
 ('Paket Sedang',1,'Pencucian Luar'),

@@ -1,3 +1,7 @@
+if(jenisUser !== 'admin' && jenisUser !== 'operator'){
+    window.location.href = '/monitor'
+}
+
 $('#backBtn').click((e) => {
     e.preventDefault()
     if(confirm("anda yakin? data yang diisi belum disimpan.")){
@@ -18,6 +22,9 @@ $('#saveBtn').click((e) => {
         url: "http://localhost:5000/api/pos",
         type: "POST",
         data,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${userToken}`);
+        },
         success: function(data, status, jqXHR) {
             window.location.href = '/pos';
         },

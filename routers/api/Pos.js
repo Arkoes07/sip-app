@@ -5,9 +5,9 @@ class Pos extends Router {
     getServices() {
         return {
             'GET /'         : 'getAll',
-            'POST /'        : 'insertRow',
-            'PUT /'         : 'updateRow',
-            'DELETE /'      : 'deleteRow'
+            'POST /'        : 'insertRow verifyToken',
+            'PUT /'         : 'updateRow verifyToken',
+            'DELETE /'      : 'deleteRow verifyToken'
         }
     }
 
@@ -34,6 +34,11 @@ class Pos extends Router {
     }
 
     insertRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         let { nama_pos, deskripsi, durasi } = req.body
 
         const check = this.checkNewData(nama_pos,durasi)
@@ -56,6 +61,11 @@ class Pos extends Router {
     }
 
     updateRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         let { nama_pos, deskripsi, durasi, old_nama_pos } = req.body
 
         const check = this.checkNewData(nama_pos,durasi)
@@ -77,6 +87,11 @@ class Pos extends Router {
     }
 
     deleteRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+        
         const text = 'DELETE FROM Pos WHERE nama_pos = $1';
         const values = [req.body.nama_pos];
         this.client.query(text, values, (err, result) => {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pekerja | Tambah Pekerja</title>
+
+    <link rel="stylesheet" href="../global-resources/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="menu-btn" id="menu-btn"></div>
+        <div class="judul-header">Pekerja | Tambah Pekerja</div>
+    </header>
+
+    <!-- MENU -->
+    <div class="menu-box" id="menu-box">
+        <div class="logo"></div>
+        <a href="../monitor/"><div class="menu-link">MONITOR</div></a> 
+        <a href="../layanan/"><div class="menu-link">layanan</div></a> 
+        <a href="../pos/"><div class="menu-link aktif">pos</div></a> 
+        <a href="../pengaturan/"><div class="menu-link">pengaturan</div></a> 
+        <div class="log-link">
+            <a href=""><button>MASUK</button></a>
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="#" class="file">
+            <p class="judul-form">Tambah Pekerja</p>
+            <label for="namaPekerja">Nama Pekerja :</label>
+            <input type="text" name="namaPekerja" id="namaPekerja">
+            <label>Daftar Tugas :</label>
+            <span class="list-btn" id="add">T</span> 
+            <span class="list-btn" id="remove">K</span> 
+            <ol id="tugas-list">
+            </ol>
+            <br>
+            <button id="backBtn">Kembali</button>
+            <button id="saveBtn">Simpan</button>
+        </form>
+    </div>
+
+    <div class="prompt-bg" id="prompt-pos">
+        <div class="prompt">
+            <p>Pilih Pos :</p>
+            <form action="#" id="prompt-form">
+            </form>
+            <p>Pilih Hari :</p>
+            <form action="#" id="hari-form">
+                <input type="radio" name="hari" value="senin"> Senin<br>
+                <input type="radio" name="hari" value="selasa"> Selasa<br>
+                <input type="radio" name="hari" value="rabu"> Rabu<br>
+                <input type="radio" name="hari" value="kamis"> Kamis<br>
+                <input type="radio" name="hari" value="jumat"> Jumat<br>
+                <input type="radio" name="hari" value="sabtu"> Sabtu<br>
+                <input type="radio" name="hari" value="minggu"> Minggu<br>
+            </form>
+            <div class="prompt-btn">
+                <button id="backBtnPrompt">Kembali</button>
+                <button id="saveBtnPrompt">Pilih</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../global-resources/jquery-3.3.1.min.js"></script>
+    <script src="../global-resources/menu.js"></script>
+    <script src="buat.js"></script>
+</body>
+</html>

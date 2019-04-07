@@ -5,9 +5,9 @@ class Layanan extends Router {
     getServices() {
         return {
             'GET /'         : 'getAll',
-            'POST /'        : 'insertRow',
-            'PUT /'         : 'updateRow',
-            'DELETE /'      : 'deleteRow'
+            'POST /'        : 'insertRow verifyToken',
+            'PUT /'         : 'updateRow verifyToken',
+            'DELETE /'      : 'deleteRow verifyToken'
         }
     }
 
@@ -35,6 +35,11 @@ class Layanan extends Router {
     }
 
     insertRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         let { nama_layanan, deskripsi, harga } = req.body
 
         const check = this.checkNewData(nama_layanan,harga)
@@ -57,6 +62,11 @@ class Layanan extends Router {
     }
 
     updateRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+
         let { nama_layanan, deskripsi, harga, old_nama_layanan } = req.body
         const check = this.checkNewData(nama_layanan,harga)
         if(check.err){
@@ -77,6 +87,11 @@ class Layanan extends Router {
     }
 
     deleteRow(req,res) {
+        const jnsUsr = req.authData.user.jenisUser
+        if(jnsUsr !== 'admin' && jnsUsr !== 'owner'){
+            res.sendStatus(403)
+        }
+        
         const text = 'DELETE FROM Layanan WHERE nama_layanan = $1';
         const values = [req.body.nama_layanan];
         this.client.query(text, values, (err, result) => {

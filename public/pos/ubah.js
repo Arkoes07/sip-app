@@ -1,3 +1,7 @@
+if(jenisUser !== 'admin' && jenisUser !== 'operator'){
+    window.location.href = '/monitor'
+}
+
 const namaPos = localStorage.getItem('namaPos')
 
 if(typeof namaPos == 'undefined' || namaPos == null){
@@ -10,6 +14,7 @@ if(typeof namaPos == 'undefined' || namaPos == null){
 $('#backBtn').click((e) => {
     e.preventDefault()
     if(confirm("anda yakin? data yang diisi belum disimpan.")){
+        localStorage.removeItem('namaPos')
         window.location.href = '/pos';
     }
 })
@@ -26,6 +31,9 @@ $('#saveBtn').click((e) => {
         url: "http://localhost:5000/api/pos",
         type: "PUT",
         data,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${userToken}`);
+        },
         success: function(data, status, jqXHR) {
             window.location.href = '/pos';
         },
@@ -34,7 +42,11 @@ $('#saveBtn').click((e) => {
                 console.log( 'request timed out.' );
             }
             else {
-                alert(jqXHR.responseJSON.err);
+                if(jqXHR.status == 403){
+                    alert('forbidden')
+                }else{
+                    alert(jqXHR.responseJSON.err)
+                }
             }
         },
         dataType: "json",

@@ -8,7 +8,7 @@ loadData()
 function loadData() {
     box.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: "http://localhost:5000/api/mix/detailLayanan",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderData(data)
@@ -17,8 +17,8 @@ function loadData() {
             if (status=='timeout') {
                 console.log( 'request timed out.' );
             }
-            else {                
-                alert(jqXHR.responseJSON.err)                
+            else {
+                alert(jqXHR.responseJSON.err)
             }
         },
         dataType: "json",
@@ -28,18 +28,18 @@ function loadData() {
 
 function renderData(data) {
     data.forEach(element => {
-        const { nama_pos : judul, deskripsi, durasi } = element
-        let content = new Pos(judul, deskripsi, durasi)
+        const { nama_layanan : judul, deskripsi, harga, pos } = element
+        let content = new Layanan(judul, deskripsi, harga, pos)
         box.append(content.getElement())
     })
 }
 
-function deleteData(namaPos) {
-    if (confirm("Yakin untuk mengahapus Pos : "+namaPos+"?")) {
+function deleteData(namaLayanan) {
+    if (confirm("Yakin untuk mengahapus Layanan : "+namaLayanan+"?")) {
         $.ajax({ 
-            url: "http://localhost:5000/api/pos",
+            url: "http://localhost:5000/api/layanan",
             type: "DELETE",
-            data: { nama_pos : namaPos},
+            data: { nama_layanan : namaLayanan },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', `Bearer ${userToken}`);
             },
@@ -64,7 +64,8 @@ function deleteData(namaPos) {
     } 
 }
 
-function ubahData(namaPos) {
-    localStorage.setItem('namaPos',namaPos)
+function ubahData(namaLayanan) {
+    console.log(namaLayanan)
+    localStorage.setItem('namaLayanan',namaLayanan)
     window.location.href = 'ubah.html';
 }
