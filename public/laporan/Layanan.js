@@ -1,6 +1,6 @@
 class Layanan {
     constructor(data){
-        const {no_transaksi, no_kendaraan, merk_mobil, nama_layanan, nama_pos, antre, jam_masuk, jam_selesai, selesai} = data
+        const {no_transaksi, no_kendaraan, merk_mobil, nama_layanan, nama_pos, antre, jam_masuk, jam_selesai, selesai, urutan_pos, byk_urutan, durasi} = data
         this.no = no_transaksi
         this.noKendaraan = no_kendaraan
         this.merk = merk_mobil
@@ -19,18 +19,27 @@ class Layanan {
             this.jamSelesai = jam_selesai.split('.')[0]
         }
         this.selesai = selesai
+        this.urutanPos = parseInt(urutan_pos)
+        this.bykUrutan = parseInt(byk_urutan)
+        this.durasi = parseInt(durasi)
     }
 
-    getIndexElement() {
-        let classChoosen = ''
+    getElement() {
+        let waktu = ''
+        let progres = 0;
         if(this.selesai){
-            classChoosen = 'selesai'
-        }else if(this.antre == 1){
-            classChoosen = 'proses'
+            progres = 100
+        }else{ 
+            if(this.urutanPos != 1){
+                progres = (((this.urutanPos - 1)*100)/this.bykUrutan).toFixed(2)     
+            }
+            waktu = this.durasi*this.antre
         }
+
+
         const element = 
         `
-            <div class="sub-box ${classChoosen}">
+            <div class="sub-box">
                 <div class="box-content nama">
                     <div>
                         <p class="judul">NO : ${this.no}</p>
@@ -51,9 +60,13 @@ class Layanan {
                         <p>jam selesai : ${this.jamSelesai}</p>
                     </div>
                 </div>
-                <div class="box-content aksi">
-                    <button onclick="ubahData('${this.no}')">LANJUT</button>
-                    <button onclick="deleteData('${this.no}')" >HAPUS</button>
+                <div class="box-content progress">
+                    <div>
+                        <p class="judul">progres : ${progres}% </p>
+                        <p>sekarang tahap : ${this.urutanPos}</p>
+                        <p>total tahap : ${this.bykUrutan}</p>
+                        <p>waktu ke tahap berikut : ${waktu} menit</p>
+                    </div>
                 </div>
             </div>
         `

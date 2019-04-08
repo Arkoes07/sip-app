@@ -158,6 +158,18 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER updatesetelahhapus
 AFTER DELETE ON Transaksi FOR EACH ROW EXECUTE PROCEDURE update_antrean();
 
+--5. TRIGGER : trigger untuk memberi notifikasi apabila terjadi perubahan pada transaksi
+CREATE OR REPLACE FUNCTION realtime_notification()
+RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM pg_notify('perubahantransaksi','berubah');
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER zampaikan
+AFTER INSERT OR UPDATE OR DELETE ON Transaksi FOR EACH STATEMENT EXECUTE PROCEDURE realtime_notification();
+
 -- UDF : untuk mengubah suatu transaksi menjadi selesai
 CREATE OR REPLACE FUNCTION selesaikan_transaksi(pk INT)
 RETURNS INT AS $$
@@ -224,6 +236,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- UDF : untuk menselesaikan semua transaksi kemarin
+-- UDF : untuk menyelesaikan semua transaksi kemarin yang belum selesai
+CREATE OR REPLACE FUNCTION selesaikan_transaksi_kemarin()
+RETURNS TEXT AS $$
+DECLARE
+    kemarin DATE;
+BEGIN
+    SELECT current_date - 1 INTO kemarin;
+    UPDATE Transaksi
+        SET selesai = TRUE,         -- ubah selesai
+        jam_selesai = localtime     -- update jam selesai
+        WHERE selesai = false AND tanggal = kemarin;
+    RETURN 'Sudah Selesaikan';
+END;
+$$ LANGUAGE plpgsql;
+
 
 

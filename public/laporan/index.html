@@ -8,20 +8,24 @@
     <link rel="stylesheet" href="../global-resources/style.css">
     <link rel="stylesheet" href="style.css">
 
-    <title>Monitor</title>
+    <title>Laporan</title>
 </head>
 <body>
     <!-- HEADER -->
     <header>
         <div class="menu-btn" id="menu-btn"></div>
-        <div class="judul-header">Monitor</div>
+        <div class="judul-header">Laporan</div>
     </header>
 
     <!-- MENU -->
     <div class="menu-box" id="menu-box">
     </div>
 
+
     <div class="container">
+        <label for="tgl">Masukkan Tanggal: </label>
+        <input type="date" name="tgl" id="tgl">
+        <button id="cariBtn">CARI</button><br><br>
         Daftar Transaksi:
         <!-- TABLE -->
         <div id="box">
@@ -32,7 +36,6 @@
     <script src="../global-resources/jquery-3.3.1.min.js"></script>
     <script src="../global-resources/menu.js"></script>
     <script src="Layanan.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -41,6 +41,7 @@ function decideMenu(){
     const posMenu = `<a href="../pos/"><div class="menu-link">pos</div></a>`
     const pekerjaMenu = `<a href="../pekerja/"><div class="menu-link">pekerja</div></a>`
     const transaksiMenu = `<a href="../transaksi/"><div class="menu-link">transaksi</div></a>`
+    const laporanMenu = `<a href="../laporan/"><div class="menu-link">laporan</div></a>`
     const loginMenu = `<div class="log-link"><a href="../login"><button>MASUK</button></a></div>`
     const logoutMenu = `<div class="log-link"><a href="../logout"><button>KELUAR</button></a></div>`
     const userInfo = `<div class="user-info">${jenisUser}</div>`
@@ -50,6 +51,7 @@ function decideMenu(){
     }
     if(jenisUser == 'operator'){
         menuBox.append(monitorMenu)
+        menuBox.append(transaksiMenu)
         menuBox.append(userInfo)
         menuBox.append(logoutMenu)
     }
@@ -59,6 +61,7 @@ function decideMenu(){
         menuBox.append(layananMenu)
         menuBox.append(posMenu)
         menuBox.append(pekerjaMenu)
+        menuBox.append(laporanMenu)
         menuBox.append(userInfo)
         menuBox.append(logoutMenu)
     }
@@ -67,6 +70,7 @@ function decideMenu(){
         menuBox.append(layananMenu)
         menuBox.append(posMenu)
         menuBox.append(pekerjaMenu)
+        menuBox.append(laporanMenu)
         menuBox.append(userInfo)
         menuBox.append(logoutMenu)
     }

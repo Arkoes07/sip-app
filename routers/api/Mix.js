@@ -4,8 +4,10 @@ class Mix extends Router {
 
     getServices() {
         return {
-            'GET /detailLayanan' : 'detailLayanan',
-            'GET /detailPekerja' : 'detailPekerja'
+            'GET /detailLayanan'        : 'detailLayanan',
+            'GET /detailPekerja'        : 'detailPekerja',
+            'GET /detailTransaksi'      : 'detailTransaksi',
+            'GET /detailTransaksi/:tgl' : 'detailTransaksiTgl'
         }
     }
 
@@ -82,6 +84,31 @@ class Mix extends Router {
                     data[i]["tugas"] = tugas
                 }
                 return res.json(data)
+            }
+        })
+    }
+
+    detailTransaksi(req, res) {
+        const text = 'SELECT * fROM transaksi INNER JOIN (SELECT COUNT(urutan) AS byk_urutan, nama_layanan FROM Terdiri GROUP BY nama_layanan) AS sub USING (nama_layanan) INNER JOIN (SELECT nama_pos, durasi from Pos) as sub2 USING(nama_pos) WHERE tanggal = CURRENT_DATE ORDER BY selesai, jam_masuk ASC'
+        this.client.query(text, (err, result) => {
+            if(err){
+                return res.status(400).json({ err: err.detail })
+            }else{
+                return res.json(result.rows)
+            }
+        })
+    }
+
+    detailTransaksiTgl(req, res) {
+        console.log(req.params.tgl)
+        const text = 'SELECT * fROM transaksi INNER JOIN (SELECT COUNT(urutan) AS byk_urutan, nama_layanan FROM Terdiri GROUP BY nama_layanan) AS sub USING (nama_layanan) INNER JOIN (SELECT nama_pos, durasi from Pos) as sub2 USING(nama_pos) WHERE tanggal = $1 ORDER BY selesai, jam_masuk ASC'
+        const value = [req.params.tgl]
+        this.client.query(text, value, (err, result) => {
+            if(err){
+                console.log(err)
+                return res.status(400).json({ err: err.detail })
+            }else{
+                return res.json(result.rows)
             }
         })
     }

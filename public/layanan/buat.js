@@ -1,4 +1,4 @@
-if(jenisUser !== 'admin' && jenisUser !== 'operator'){
+if(jenisUser !== 'admin' && jenisUser !== 'owner'){
     window.location.href = '/monitor'
 }
 

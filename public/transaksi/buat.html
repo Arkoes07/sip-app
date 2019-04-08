@@ -28,12 +28,24 @@
             <label for="nomor">Nomor Kendaraan :</label>
             <input type="text" name="nomor" id="nomor">
             <label for="layanan">Pilih layanan :</label>
-            <select name="layanan" id="layanan">
-
-            </select>
+            <span class="list-btn" id="add">P</span> 
+            <span id="layanan-terpilih"></span>
+            <br><br>
             <button id="backBtn">Kembali</button>
             <button id="saveBtn">Simpan</button>
         </form>
+    </div>
+
+    <div class="prompt-bg" id="prompt-pos">
+        <div class="prompt">
+            <p>Pilih Pos :</p>
+            <form action="#" id="prompt-form">
+            </form>
+            <div class="prompt-btn">
+                <button id="backBtnPrompt">Kembali</button>
+                <button id="saveBtnPrompt">Pilih</button>
+            </div>
+        </div>
     </div>
 
     <script src="../global-resources/jquery-3.3.1.min.js"></script>

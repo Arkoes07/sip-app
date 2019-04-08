@@ -1,5 +1,5 @@
 const client = require('../config/db')
-client.connect()
+
 const JwtOperation = require('../middleware/JwtOperation')
 
 class Router {

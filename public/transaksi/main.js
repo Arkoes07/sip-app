@@ -29,7 +29,7 @@ function loadData() {
 function renderData(data) {
     data.forEach(element => {
         let content = new Layanan(element)
-        box.append(content.getElement())
+        box.append(content.getIndexElement())
     })
 }
 
