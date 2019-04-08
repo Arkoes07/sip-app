@@ -100,7 +100,10 @@ class Mix extends Router {
     }
 
     detailTransaksiTgl(req, res) {
-        console.log(req.params.tgl)
+        // console.log(req.params.tgl)
+        if(!(/^\d{4}\-\d{2}\-\d{2}$/.test(req.params.tgl))){
+            return res.status(400).json({ err: 'format tanggal tidak sesuai' })
+        }
         const text = 'SELECT * fROM transaksi INNER JOIN (SELECT COUNT(urutan) AS byk_urutan, nama_layanan FROM Terdiri GROUP BY nama_layanan) AS sub USING (nama_layanan) INNER JOIN (SELECT nama_pos, durasi from Pos) as sub2 USING(nama_pos) WHERE tanggal = $1 ORDER BY selesai, jam_masuk ASC'
         const value = [req.params.tgl]
         this.client.query(text, value, (err, result) => {
