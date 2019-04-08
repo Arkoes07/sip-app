@@ -7,9 +7,11 @@ class Pekerja {
 
     getElement(){
         let tugasString = ''
-        this.tugas.forEach(element => {
-            tugasString += `${element.hari} : ${element.nama_pos}</br>`
-        });
+        if(this.tugas.length != 1 || this.tugas[0].nama_pos != null ) {
+                this.tugas.forEach(element => {
+                    tugasString += `${element.hari} : ${element.nama_pos}</br>`
+                });
+        }
         const element =
         `
             <div class="sub-box">

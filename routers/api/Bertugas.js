@@ -64,12 +64,18 @@ class Bertugas extends Router {
                 await this.client.query(text,values)
             }
             let arrLength = hariArr.length
-            let textTwo = "DELETE FROM Bertugas WHERE id_pekerja = $1 AND hari NOT IN ("
-            for (let i = 0; i < arrLength; i++){
-                textTwo += `$${i + 2}`
-                i === arrLength - 1 ? textTwo += ")" : textTwo += ","
+            if(arrLength != 0){
+                let textTwo = "DELETE FROM Bertugas WHERE id_pekerja = $1 AND hari NOT IN ("
+                for (let i = 0; i < arrLength; i++){
+                    textTwo += `$${i + 2}`
+                    i === arrLength - 1 ? textTwo += ")" : textTwo += ","
+                }
+                await this.client.query(textTwo,[id_pekerja].concat(hariArr))
+            }else{
+                let textTwo = "DELETE FROM Bertugas WHERE id_pekerja = $1"
+                await this.client.query(textTwo,[id_pekerja])
             }
-            await this.client.query(textTwo,[id_pekerja].concat(hariArr))
+            // console.log(textTwo)
             await this.client.query("COMMIT")
         }
         catch (ex){

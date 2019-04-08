@@ -61,6 +61,7 @@ $('#saveBtn').click((e) => {
         posArr,
         old_nama_layanan : namaLayanan
     }
+    console.log(data)
     saveData(data)
 })
 
@@ -166,6 +167,7 @@ function saveData(data){
 }
 
 function insertTerdiri(nama_layanan, posArr){
+    console.log(posArr)
     $.ajax({ 
         url: "http://localhost:5000/api/terdiri/group",
         type: "POST",

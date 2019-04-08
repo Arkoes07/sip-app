@@ -95,7 +95,9 @@ function renderData(data){
     $('#namaPekerja').val(content[0].nama_pekerja)
     content[0].tugas.forEach((el) => {
         const textpos = `<li>${el.hari}: ${el.nama_pos}</li>`
-        list.append(textpos)
+        if(el.nama_pos != null){
+            list.append(textpos)
+        }
     })
 }
 

@@ -63,16 +63,30 @@ class Terdiri extends Router {
         }
         const nama_layanan = req.body.nama_layanan
         const posArr = req.body["posArr[]"]
+
         try {
             let count = 0
             await this.client.query("BEGIN")
-            for(let i in posArr){
-                count++
-                const urutan = parseInt(i)+1
-                const nama_pos = posArr[i]
-                const text = `INSERT INTO Terdiri VALUES ($1,$2,$3) ON CONFLICT (nama_layanan,urutan) DO UPDATE SET nama_pos = $3`
-                const values = [nama_layanan, urutan, nama_pos]
-                await this.client.query(text, values)
+            if(Array.isArray(posArr)){
+                for(let i in posArr){
+                    count++
+                    const urutan = parseInt(i)+1
+                    const nama_pos = posArr[i]
+                    const text = `INSERT INTO Terdiri VALUES ($1,$2,$3) ON CONFLICT (nama_layanan,urutan) DO UPDATE SET nama_pos = $3`
+                    const values = [nama_layanan, urutan, nama_pos]
+                    await this.client.query(text, values)
+                }
+            }else{
+                const urutan = 1
+                const nama_pos = posArr
+                if(typeof nama_pos == 'undefined' || nama_pos == null || /^\s*$/.test(nama_pos)){
+                    
+                }else{
+                    const text = `INSERT INTO Terdiri VALUES ($1,$2,$3) ON CONFLICT (nama_layanan,urutan) DO UPDATE SET nama_pos = $3`
+                    const values = [nama_layanan, urutan, nama_pos]
+                    count = 1
+                    await this.client.query(text, values) 
+                }
             }
             const textTwo = `DELETE FROM Terdiri WHERE nama_layanan = $1 AND urutan > $2`
             await this.client.query(textTwo, [nama_layanan, count])
@@ -81,7 +95,7 @@ class Terdiri extends Router {
         catch (ex){
             console.log(ex)
             await this.client.query("ROLLBACK")
-            // return res.status(400).json({ err: ex.detail })
+            return res.status(400).json({ err: ex.detail })
         }
         finally{
             res.status(200).json({msg : 'berhasil upsert'})
