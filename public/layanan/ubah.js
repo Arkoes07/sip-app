@@ -67,7 +67,7 @@ $('#saveBtn').click((e) => {
 
 function loadData() {
     $.ajax({ 
-        url: "http://localhost:5000/api/mix/detailLayanan",
+        url: domain+"api/mix/detailLayanan",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderData(data)
@@ -88,7 +88,7 @@ function loadData() {
 function loadPrompt() {
     promptForm.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderForm(data)
@@ -140,7 +140,7 @@ function showPrompt(){
 function saveData(data){
     const { nama_layanan, deskripsi, harga, old_nama_layanan, posArr } = data
     $.ajax({ 
-        url: "http://localhost:5000/api/layanan",
+        url: domain+"api/layanan",
         type: "PUT",
         data: { nama_layanan, deskripsi, harga, old_nama_layanan },
         beforeSend: function (xhr) {
@@ -169,7 +169,7 @@ function saveData(data){
 function insertTerdiri(nama_layanan, posArr){
     console.log(posArr)
     $.ajax({ 
-        url: "http://localhost:5000/api/terdiri/group",
+        url: domain+"api/terdiri/group",
         type: "POST",
         data: { nama_layanan, posArr },
         beforeSend: function (xhr) {

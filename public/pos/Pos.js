@@ -21,8 +21,8 @@ class Pos {
                     </div>
                 </div>
                 <div class="box-content aksi">
-                    <button onclick="ubahData('${this.judul}')">UBAH</button>
-                    <button onclick="deleteData('${this.judul}')" >HAPUS</button>
+                    <button onclick="ubahData('${this.judul}')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"><i class="far fa-edit"></i>UBAH</button>
+                    <button onclick="deleteData('${this.judul}')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="far fa-trash-alt"></i>HAPUS</button>
                 </div>
             </div>
         `

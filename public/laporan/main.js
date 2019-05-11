@@ -13,7 +13,7 @@ function loadData(tgl) {
     console.log(tgl)
     box.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/mix/detailTransaksi/"+tgl,
+        url: domain+"api/mix/detailTransaksi/"+tgl,
         type: "GET",
         success: function(data, status, jqXHR) {
             renderData(data)

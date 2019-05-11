@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Layanan | Ubah Layanan</title>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../global-resources/style.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -21,22 +27,34 @@
     </div>
 
     <div class="container">
-        <form action="#" class="file">
+        <form autocomplete="off" action="#" class="file">
             <p class="judul-form">Ubah Layanan</p>
-            <label for="judul">Nama Layanan :</label>
-            <input type="text" name="judul" id="judul">
-            <label for="deskripsi">Deskripsi :</label>
-            <input type="text" name="deskripsi" id="deskripsi">
-            <label for="harga">Harga :</label>
-            <input type="number" name="harga" id="harga">
+            <!-- <label for="judul">Nama Layanan :</label>
+            <input type="text" name="judul" id="judul"> -->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="judul" name="judul">
+                <label class="mdl-textfield__label" for="judul">Nama Layanan...</label>
+            </div>
+            <!-- <label for="deskripsi">Deskripsi :</label>
+            <input type="text" name="deskripsi" id="deskripsi"> -->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="deskripsi" name="deskripsi">
+                <label class="mdl-textfield__label" for="deskripsi">Deskripsi...</label>
+            </div>
+            <!-- <label for="harga">Harga :</label>
+            <input type="number" name="harga" id="harga"> -->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="harga" name="harga">
+                <label class="mdl-textfield__label" for="harga">Harga...</label>
+            </div>
             <label>Urutan Pos :</label>
             <span class="list-btn" id="add">T</span> 
             <span class="list-btn" id="remove">K</span> 
             <ol id="pos-list">
             </ol>
             <br>
-            <button id="backBtn">Kembali</button>
-            <button id="saveBtn">Simpan</button>
+            <button id="backBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Kembali</button>
+            <button id="saveBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Simpan</button>
         </form>
     </div>
 
@@ -53,6 +71,7 @@
     </div>
 
     <script src="../global-resources/jquery-3.3.1.min.js"></script>
+    <script src="../global-resources/config-var.js"></script>
     <script src="../global-resources/menu.js"></script>
     <script src="ubah.js"></script>
 </body>

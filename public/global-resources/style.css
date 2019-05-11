@@ -1,8 +1,13 @@
 body{
     margin: 0;
     padding: 0;
-    background: #d9d9d9;
+    background: url(./sip-bg.jpg);
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    background-attachment: fixed;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    opacity: 0.9;
 }
 
 header{
@@ -16,6 +21,14 @@ header{
     padding: 0 10px;
     display: flex;
     align-items: center;
+    z-index: 100;
+}
+
+i.fas{
+    margin-right: 10px;
+}
+i.far{
+    margin-right: 10px;
 }
 
 .judul-header{
@@ -29,6 +42,7 @@ header{
     height: 100%;
     width: 80%;
     box-sizing: border-box;
+    /* opacity: 0.8; */
 }
 
 p{
@@ -161,13 +175,10 @@ a{
     color: #14a2ba;
 }
 
-.container form.file input{
+.container form.file div{
     width: 100%;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    padding: 5px;
-    box-sizing: border-box;
 }
+
 .container form.file select{
     width: 100%;
     margin-bottom: 20px;
@@ -178,23 +189,23 @@ a{
 
 .container form.file button{
     margin-right: 10px;
-    border: 1px solid #125d72;
+    /* border: 1px solid #125d72; */
     text-align: center;
-    padding: 5px 10px;
+    /* padding: 5px 10px;
     text-decoration: none;
-    display: inline-block;
-    outline: none;
+    display: inline-block; */
+    /* outline: none;
     background-color: #14a2ba;
-    color: white;
+    color: white; */
 }
 .container form.file button:hover{
     cursor: pointer;
 }
 
-.container form.file button#backBtn{
+/* .container form.file button#backBtn{
     background-color: #efe62f;
     color: black;
-}
+} */
 
 .container form.file span.list-btn{
     box-sizing: border-box;

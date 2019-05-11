@@ -28,7 +28,7 @@ $('#saveBtn').click((e) => {
         old_nama_pos : namaPos
     }
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "PUT",
         data,
         beforeSend: function (xhr) {
@@ -56,7 +56,7 @@ $('#saveBtn').click((e) => {
 
 function loadData() {
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "GET",
         data: {nama_pos : namaPos},
         success: function(data, status, jqXHR) {

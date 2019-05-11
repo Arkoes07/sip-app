@@ -27,14 +27,17 @@ class Layanan {
     getElement() {
         let waktu = ''
         let progres = 0;
-        if(this.selesai){
-            progres = 100
-        }else{ 
+        // if(this.selesai){
+        //     progres = 100
+        // }else{
             if(this.urutanPos != 1){
                 progres = (((this.urutanPos - 1)*100)/this.bykUrutan).toFixed(2)     
             }
+            if(this.selesai && this.urutanPos == this.bykUrutan){
+                progres = 100;
+            }
             waktu = this.durasi*this.antre
-        }
+        // }
 
 
         const element = 

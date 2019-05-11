@@ -30,16 +30,20 @@ class Layanan {
         let progres = 0;
         if(this.selesai){
             classChoosen = 'selesai'
-            progres = 100
         }else{ 
             if(this.antre == 1){
                 classChoosen = 'proses'
             }
-            if(this.urutanPos != 1){
-                progres = (((this.urutanPos - 1)*100)/this.bykUrutan).toFixed(2)     
-            }
             waktu = this.durasi*this.antre
         }
+        if(this.urutanPos != 1){
+            progres = (((this.urutanPos - 1)*100)/this.bykUrutan).toFixed(2)     
+        }
+        if(this.selesai && this.urutanPos == this.bykUrutan){
+            progres = 100;
+        }
+        waktu = this.durasi*this.antre
+        
 
 
         const element = 

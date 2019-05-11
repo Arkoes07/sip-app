@@ -12,7 +12,7 @@ $('#login').click((e) => {
     }
     let data = { username, password }
     $.ajax({ 
-        url: "http://localhost:5000/api/pengguna/login",
+        url: domain+"api/pengguna/login",
         type: "POST",
         data,
         success: function(data, status, jqXHR) {

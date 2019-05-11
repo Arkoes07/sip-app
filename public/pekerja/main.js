@@ -9,7 +9,7 @@ loadData()
 function loadData() {
     box.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/mix/detailPekerja",
+        url: domain+"api/mix/detailPekerja",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderData(data)
@@ -38,7 +38,7 @@ function renderData(data) {
 function deleteData(idPekerja) {
     if (confirm("Yakin untuk mengahapus Pekerja id : "+idPekerja+"?")) {
         $.ajax({ 
-            url: "http://localhost:5000/api/pekerja/"+idPekerja,
+            url: domain+"api/pekerja/"+idPekerja,
             type: "DELETE",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', `Bearer ${userToken}`);

@@ -8,7 +8,7 @@ loadData()
 function loadData() {
     box.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderData(data)
@@ -37,7 +37,7 @@ function renderData(data) {
 function deleteData(namaPos) {
     if (confirm("Yakin untuk mengahapus Pos : "+namaPos+"?")) {
         $.ajax({ 
-            url: "http://localhost:5000/api/pos",
+            url: domain+"api/pos",
             type: "DELETE",
             data: { nama_pos : namaPos},
             beforeSend: function (xhr) {

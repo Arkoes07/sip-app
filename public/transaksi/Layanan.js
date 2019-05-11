@@ -52,8 +52,8 @@ class Layanan {
                     </div>
                 </div>
                 <div class="box-content aksi">
-                    <button onclick="ubahData('${this.no}')">LANJUT</button>
-                    <button onclick="deleteData('${this.no}')" >HAPUS</button>
+                    <button onclick="ubahData('${this.no}')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">LANJUT</button>
+                    <button onclick="deleteData('${this.no}')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">HAPUS</button>
                 </div>
             </div>
         `

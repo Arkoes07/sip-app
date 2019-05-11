@@ -70,7 +70,7 @@ $('#backBtn').click((e) => {
 function loadPrompt() {
     promptForm.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderForm(data)
@@ -108,7 +108,7 @@ function showPrompt(){
 function saveData(data){
     const { nama_pekerja, tugas } = data
     $.ajax({ 
-        url: "http://localhost:5000/api/pekerja",
+        url: domain+"api/pekerja",
         type: "POST",
         data: { nama_pekerja },
         beforeSend: function (xhr) {
@@ -136,7 +136,7 @@ function saveData(data){
 
 function insertBertugas(id_pekerja, tugas){
     $.ajax({ 
-        url: "http://localhost:5000/api/bertugas/group",
+        url: domain+"api/bertugas/group",
         type: "POST",
         data: { id_pekerja, tugas : JSON.stringify(tugas) },
         beforeSend: function (xhr) {

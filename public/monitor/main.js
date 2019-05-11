@@ -16,7 +16,7 @@ function loadData() {
     console.log('loading....')
     box.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/mix/detailTransaksi",
+        url: domain+"api/mix/detailTransaksi",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderData(data)

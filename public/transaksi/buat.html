@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Transaksi | Buat Transaksi</title>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../global-resources/style.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -21,18 +27,26 @@
     </div>
 
     <div class="container">
-        <form action="#" class="file">
+        <form autocomplete="off" action="#" class="file">
             <p class="judul-form">Buat Transaksi</p>
-            <label for="merk">Merk Kendaraan :</label>
-            <input type="text" name="merk" id="merk">
-            <label for="nomor">Nomor Kendaraan :</label>
-            <input type="text" name="nomor" id="nomor">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="merk" name="merk">
+                <label class="mdl-textfield__label" for="merk">Merk Kendaraan...</label>
+            </div>
+            <!-- <label for="merk">Merk Kendaraan :</label>
+            <input type="text" name="merk" id="merk"> -->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="nomor" name="nomor">
+                <label class="mdl-textfield__label" for="nomor">Nomor Kendaraan...</label>
+            </div>
+            <!-- <label for="nomor">Nomor Kendaraan :</label>
+            <input type="text" name="nomor" id="nomor"> -->
             <label for="layanan">Pilih layanan :</label>
             <span class="list-btn" id="add">P</span> 
             <span id="layanan-terpilih"></span>
             <br><br>
-            <button id="backBtn">Kembali</button>
-            <button id="saveBtn">Simpan</button>
+            <button id="backBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Kembali</button>
+            <button id="saveBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Simpan</button>
         </form>
     </div>
 

@@ -23,6 +23,12 @@ app.use(express.urlencoded({ extended: false }))
 // Use static file
 app.use(express.static(path.join(__dirname,'public')))
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 // Instantiate Routers
 const pos = new Pos('/api/pos', app)
 const layanan = new Layanan('/api/layanan', app)

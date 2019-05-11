@@ -7,6 +7,7 @@
     -moz-box-shadow: 0px 0px 10px 0px rgba(20,162,186,1);
     box-shadow: 0px 0px 10px 0px rgba(20,162,186,1);
     margin-bottom: 100px;
+    /* opacity: 0.8; */
 }
 
 .sub-box{
@@ -55,19 +56,19 @@ p.deskripsi{
 
 .aksi button{
     margin-left: 10px;
-    border: 1px solid #125d72;
+    /* border: 1px solid #125d72; */
     text-align: center;
-    padding: 5px 10px;
+    /* padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
-    outline: none;
+    outline: none; */
 }
-.aksi button:nth-child(1){
+/* .aksi button:nth-child(1){
     background-color: #efe62f; 
 }
 .aksi button:nth-child(2){
     background-color: #e7f6f9; 
-}
+} */
 .aksi button:hover{
     cursor: pointer;
 }
@@ -101,6 +102,6 @@ p.deskripsi{
 @media only screen and (min-width: 700px) {
     .sub-box{
         display: grid;
-        grid-template-columns: 40% 20% 20% 20%;
+        grid-template-columns: 35% 20% 20% 25%;
     }
 }

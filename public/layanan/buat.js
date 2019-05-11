@@ -60,7 +60,7 @@ $('#saveBtn').click((e) => {
 function loadPrompt() {
     promptForm.empty()
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "GET",
         success: function(data, status, jqXHR) {
             renderForm(data)
@@ -98,7 +98,7 @@ function showPrompt(){
 function saveData(data){
     const { nama_layanan, deskripsi, harga, posArr } = data
     $.ajax({ 
-        url: "http://localhost:5000/api/layanan",
+        url: domain+"api/layanan",
         type: "POST",
         data: { nama_layanan, deskripsi, harga },
         beforeSend: function (xhr) {
@@ -126,7 +126,7 @@ function saveData(data){
 
 function insertTerdiri(nama_layanan, posArr){
     $.ajax({ 
-        url: "http://localhost:5000/api/terdiri/group",
+        url: domain+"api/terdiri/group",
         type: "POST",
         data: { nama_layanan, posArr },
         beforeSend: function (xhr) {

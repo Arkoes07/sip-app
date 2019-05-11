@@ -19,7 +19,7 @@ $('#saveBtn').click((e) => {
     }
 
     $.ajax({ 
-        url: "http://localhost:5000/api/pos",
+        url: domain+"api/pos",
         type: "POST",
         data,
         beforeSend: function (xhr) {
